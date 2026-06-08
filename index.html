@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="Pt-Br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Meu Simulador de Fazenda</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <div class="caixa-principal">
+        <h1>Simulador Fazenda Sustentável</h1>
+        <p>Tema: Agro forte, futuro sustentável</p>
+        
+        <div class="caixa-pontos">
+            <p>Pontos de Ecologia: <span id="pontos">10</span></p>
+        </div>
+
+        <p class="pergunta"><strong>Situação:</strong> Apareceram muitas pragas na plantação de soja. O que você faz?</p>
+
+        <div class="opcoes">
+            <button class="botao-bom" onclick="escolhaBoa()">Usar controle biológico (joaninhas)</button>
+            <button class="botao-ruim" onclick="escolhaRuim()">Jogar veneno químico pesado</button>
+        </div>
+
+        <p id="texto-resultado">Escolha uma das opções acima para jogar.</p>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
