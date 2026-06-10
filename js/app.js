@@ -1,180 +1,118 @@
-let estado = JSON.parse(localStorage.getItem("fazenda")) || {
+let state = JSON.parse(localStorage.getItem("fazenda")) || {
+x: 200,
+y: 200,
 
-dinheiro: 100,
 agua: 100,
 solo: 100,
 fome: 100,
-
-sementes: 5,
-plantacao: 0,
-colheita: 0,
-
-clima: "☀️ Ensolarado"
-
+dinheiro: 100,
+clima: "☀️"
 };
 
-// ---------------- SALVAR ----------------
-function salvar(){
-localStorage.setItem("fazenda", JSON.stringify(estado));
-}
-
-// ---------------- NOVO JOGO ----------------
-function novoJogo(){
-localStorage.clear();
+// ---------------- IR PARA O JOGO ----------------
+function startGame(){
 location.href = "jogo.html";
 }
 
-// ---------------- ATUALIZAR ----------------
-function atualizar(){
+// ---------------- PLAYER ----------------
+const player = document.getElementById("player");
 
-if(!document.getElementById("dinheiro")) return;
+function updatePlayer(){
+if(!player) return;
 
-document.getElementById("dinheiro").innerText = estado.dinheiro;
-document.getElementById("agua").innerText = estado.agua;
-document.getElementById("solo").innerText = estado.solo;
-document.getElementById("fome").innerText = estado.fome;
-document.getElementById("clima").innerText = estado.clima;
+player.style.left = state.x + "px";
+player.style.top = state.y + "px";
+}
 
+// ---------------- MOVIMENTO ----------------
+document.addEventListener("keydown",(e)=>{
+
+if(!player) return;
+
+if(e.key === "w") state.y -= 15;
+if(e.key === "s") state.y += 15;
+if(e.key === "a") state.x -= 15;
+if(e.key === "d") state.x += 15;
+
+state.x = Math.max(0,state.x);
+state.y = Math.max(0,state.y);
+
+if(e.key === "e") interact();
+
+updatePlayer();
+});
+
+// ---------------- INTERAÇÃO ----------------
+function interact(){
+
+let msg = "";
+
+if(state.x > 450){
+state.dinheiro += 20;
+state.fome += 10;
+msg = "🏪 Venda no mercado";
+}
+
+if(state.x < 200){
+state.agua += 20;
+msg = "💧 Água coletada";
+}
+
+if(state.x > 250 && state.x < 400){
+msg = "🌱 Área de cultivo";
+}
+
+log(msg);
+}
+
+// ---------------- CLIMA ----------------
+function clima(){
+
+let c = ["☀️ Ensolarado","🌧️ Chuva","⛅ Nublado","🌩️ Tempestade"];
+state.clima = c[Math.floor(Math.random()*c.length)];
+
+if(state.clima.includes("🌧️")) state.agua += 10;
+if(state.clima.includes("☀️")) state.agua -= 5;
+if(state.clima.includes("🌩️")) state.solo -= 10;
+
+}
+
+// ---------------- HUD ----------------
+function updateHUD(){
+
+if(!document.getElementById("agua")) return;
+
+document.getElementById("agua").innerText = state.agua;
+document.getElementById("solo").innerText = state.solo;
+document.getElementById("fome").innerText = state.fome;
+document.getElementById("dinheiro").innerText = state.dinheiro;
+document.getElementById("clima").innerText = state.clima;
 }
 
 // ---------------- LOG ----------------
 function log(msg){
-document.getElementById("log").innerText = msg;
-}
-
-// ---------------- CLIMA ----------------
-function mudarClima(){
-
-let climas = [
-"☀️ Ensolarado",
-"🌧️ Chuva",
-"⛅ Nublado",
-"🌩️ Tempestade",
-"🥵 Seca"
-];
-
-estado.clima = climas[Math.floor(Math.random()*climas.length)];
-}
-
-// ---------------- PLANTAR ----------------
-function plantar(){
-
-if(estado.sementes <= 0){
-log("❌ Sem sementes!");
-return;
-}
-
-estado.sementes--;
-estado.plantacao += 1;
-
-log("🌱 Plantio realizado");
-salvar();
-atualizar();
-}
-
-// ---------------- COLHER ----------------
-function colher(){
-
-if(estado.plantacao <= 0){
-log("❌ Nada para colher");
-return;
-}
-
-estado.plantacao--;
-estado.colheita += 3;
-
-log("🌾 Colheita realizada +3");
-salvar();
-atualizar();
-}
-
-// ---------------- COMPRAR SEMENTES ----------------
-function comprarSemente(){
-
-if(estado.dinheiro < 10){
-log("❌ Dinheiro insuficiente");
-return;
-}
-
-estado.dinheiro -= 10;
-estado.sementes += 5;
-
-log("🛒 Comprou sementes");
-salvar();
-atualizar();
-}
-
-// ---------------- COMPRAR COMIDA ----------------
-function comprarComida(){
-
-if(estado.dinheiro < 15){
-log("❌ Sem dinheiro");
-return;
-}
-
-estado.dinheiro -= 15;
-estado.fome += 25;
-
-log("🍗 Comeu comida");
-salvar();
-atualizar();
-}
-
-// ---------------- VENDER ----------------
-function vender(){
-
-if(estado.colheita <= 0){
-log("❌ Nada para vender");
-return;
-}
-
-estado.dinheiro += estado.colheita * 5;
-log("💰 Vendas realizadas");
-
-estado.colheita = 0;
-
-salvar();
-atualizar();
-}
-
-// ---------------- PASSAR DIA ----------------
-function passarDia(){
-
-// fome
-estado.fome -= 5;
-
-// água e solo
-estado.agua -= 3;
-estado.solo -= 2;
-
-// produção cresce
-if(estado.plantacao > 0){
-estado.colheita += estado.plantacao;
-}
-
-// clima
-mudarClima();
-
-// efeitos do clima
-if(estado.clima === "🌧️ Chuva") estado.agua += 15;
-if(estado.clima === "🥵 Seca") estado.agua -= 20;
-if(estado.clima === "🌩️ Tempestade") estado.solo -= 10;
-
-// limites
-if(estado.fome > 100) estado.fome = 100;
-
-salvar();
-atualizar();
-
-log("⏩ Um dia passou");
+let el = document.getElementById("log");
+if(el) el.innerText = msg || "Explorando a fazenda...";
 }
 
 // ---------------- LOOP ----------------
-setInterval(() => {
-if(estado.fome < 20){
-log("⚠ Fome baixa!");
-}
-}, 3000);
+setInterval(()=>{
 
-// inicial
-atualizar();
+if(document.getElementById("hud")){
+state.fome -= 1;
+state.agua -= 1;
+clima();
+updateHUD();
+save();
+}
+
+},4000);
+
+// ---------------- SAVE ----------------
+function save(){
+localStorage.setItem("fazenda",JSON.stringify(state));
+}
+
+// init
+updatePlayer();
+updateHUD();

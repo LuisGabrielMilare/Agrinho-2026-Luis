@@ -1,25 +1,96 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simulador de Fazenda Sustentável</title>
-<link rel="stylesheet" href="css/style.css">
-</head>
+let state = {
+x: 200,
+y: 200,
 
-<body class="menu">
+agua: 100,
+solo: 100,
+fome: 100,
+dinheiro: 100,
+clima: "☀️"
+};
 
-<div class="container">
-    <h1>🌱 Simulador de Fazenda Sustentável</h1>
+const player = document.getElementById("player");
 
-    <p>
-        Um simulador sandbox onde você administra uma fazenda,
-        cuida de recursos naturais, fome e economia.
-    </p>
+// ---------------- MOVIMENTO SUAVE ----------------
+document.addEventListener("keydown",(e)=>{
 
-    <button onclick="novoJogo()">▶ Iniciar Simulação</button>
-</div>
+if(e.key === "w") state.y -= 15;
+if(e.key === "s") state.y += 15;
+if(e.key === "a") state.x -= 15;
+if(e.key === "d") state.x += 15;
 
-<script src="js/app.js"></script>
-</body>
-</html>
+if(e.key === "e") interact();
+
+updatePlayer();
+});
+
+// ---------------- PLAYER ----------------
+function updatePlayer(){
+player.style.left = state.x + "px";
+player.style.top = state.y + "px";
+}
+
+// ---------------- INTERAÇÃO REALISTA ----------------
+function interact(){
+
+let msg = "";
+
+if(state.x > 350 && state.y > 180 && state.y < 300){
+state.dinheiro += 20;
+state.fome += 10;
+msg = "🏪 Venda realizada no mercado";
+}
+
+if(state.x < 180 && state.y < 150){
+state.agua += 20;
+msg = "💧 Água coletada";
+}
+
+if(state.x > 180 && state.x < 260){
+msg = "🌱 Área agrícola em uso";
+}
+
+log(msg);
+}
+
+// ---------------- CLIMA ----------------
+function clima(){
+
+let c = ["☀️ Ensolarado","🌧️ Chuva","⛅ Nublado","🌩️ Tempestade"];
+state.clima = c[Math.floor(Math.random()*c.length)];
+
+if(state.clima.includes("🌧️")) state.agua += 10;
+if(state.clima.includes("☀️")) state.agua -= 5;
+if(state.clima.includes("🌩️")) state.solo -= 10;
+
+}
+
+// ---------------- LOOP ----------------
+setInterval(()=>{
+
+state.fome -= 1;
+state.agua -= 1;
+
+clima();
+updateHUD();
+
+},4000);
+
+// ---------------- HUD ----------------
+function updateHUD(){
+
+document.getElementById("agua").innerText = state.agua;
+document.getElementById("solo").innerText = state.solo;
+document.getElementById("fome").innerText = state.fome;
+document.getElementById("dinheiro").innerText = state.dinheiro;
+document.getElementById("clima").innerText = state.clima;
+
+}
+
+// ---------------- LOG ----------------
+function log(msg){
+document.getElementById("log").innerText = msg || "Explorando a fazenda...";
+}
+
+updatePlayer();
+updateHUD();

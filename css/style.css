@@ -1,24 +1,25 @@
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
-
 body{
-background:linear-gradient(135deg,#1b5e20,#66bb6a);
-color:white;
-min-height:100vh;
+margin:0;
+overflow:hidden;
+font-family:Arial;
+background:linear-gradient(to bottom,#7ec850,#2e7d32);
 }
 
-.container{
+/* MENU */
+.menu{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.menu-container{
 text-align:center;
-padding:60px;
-}
-
-h1{
-font-size:3rem;
-margin-bottom:20px;
+color:white;
+background:rgba(0,0,0,0.4);
+padding:40px;
+border-radius:15px;
+backdrop-filter:blur(10px);
 }
 
 button{
@@ -26,40 +27,69 @@ padding:12px 20px;
 border:none;
 border-radius:10px;
 cursor:pointer;
-background:#ffeb3b;
 font-weight:bold;
+background:#ffd54f;
+}
+
+/* HUD */
+#hud{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+display:flex;
+gap:20px;
+padding:10px;
+background:rgba(0,0,0,0.5);
+color:white;
+backdrop-filter:blur(10px);
+}
+
+/* mundo */
+#world{
+position:relative;
+width:100vw;
+height:100vh;
+}
+
+/* tiles realistas */
+.tile{
+position:absolute;
+width:130px;
+height:130px;
+border-radius:20px;
+box-shadow:0 15px 30px rgba(0,0,0,0.3);
 transition:0.3s;
 }
 
-button:hover{
+.tile:hover{
 transform:scale(1.05);
 }
 
-.painel{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-gap:10px;
-padding:20px;
+.water{ background:linear-gradient(135deg,#2196f3,#0d47a1); }
+.field{ background:linear-gradient(135deg,#43a047,#1b5e20); }
+.market{ background:linear-gradient(135deg,#fbc02d,#8d6e00); }
+.house{ background:linear-gradient(135deg,#8d6e63,#4e342e); }
+
+/* jogador */
+#player{
+position:absolute;
+width:40px;
+height:40px;
+border-radius:50%;
+background:white;
+box-shadow:0 0 20px rgba(255,255,255,0.9);
+transition:0.15s;
 }
 
-.card{
-background:rgba(0,0,0,0.3);
-padding:15px;
-border-radius:10px;
-text-align:center;
-}
-
-.acoes{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:10px;
-padding:20px;
-}
-
-.log{
-text-align:center;
-margin:10px;
-padding:10px;
-background:rgba(0,0,0,0.3);
+/* log */
+#log{
+position:fixed;
+bottom:10px;
+left:50%;
+transform:translateX(-50%);
+background:rgba(0,0,0,0.5);
+color:white;
+padding:10px 15px;
 border-radius:10px;
 }

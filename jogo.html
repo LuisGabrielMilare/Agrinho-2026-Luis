@@ -3,41 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fazenda</title>
+<title>Jogo</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<header class="container">
-<h1>🚜 Fazenda Sustentável</h1>
-</header>
+<!-- HUD -->
+<div id="hud">
+<div>💧 Água: <span id="agua"></span></div>
+<div>🌱 Solo: <span id="solo"></span></div>
+<div>🍗 Fome: <span id="fome"></span></div>
+<div>💰 Dinheiro: <span id="dinheiro"></span></div>
+<div>🌦️ Clima: <span id="clima"></span></div>
+</div>
 
-<section class="painel">
+<!-- MUNDO -->
+<div id="world">
 
-<div class="card">💰 Dinheiro<br><span id="dinheiro"></span></div>
-<div class="card">💧 Água<br><span id="agua"></span></div>
-<div class="card">🌱 Solo<br><span id="solo"></span></div>
-<div class="card">🍗 Fome<br><span id="fome"></span></div>
-<div class="card">🌦️ Clima<br><span id="clima"></span></div>
+<div class="tile water" style="top:120px;left:150px"></div>
+<div class="tile field" style="top:200px;left:300px"></div>
+<div class="tile market" style="top:320px;left:500px"></div>
+<div class="tile house" style="top:420px;left:180px"></div>
 
-</section>
+<div id="player"></div>
 
-<section class="acoes">
+</div>
 
-<button onclick="plantar()">🌱 Plantar</button>
-<button onclick="colher()">🌾 Colher</button>
-
-<button onclick="comprarSemente()">🛒 Comprar Sementes</button>
-<button onclick="comprarComida()">🍗 Comprar Comida</button>
-
-<button onclick="vender()">💰 Vender Produção</button>
-
-<button onclick="passarDia()">⏩ Passar Dia</button>
-
-</section>
-
-<div class="log" id="log">Bem-vindo à fazenda!</div>
+<!-- LOG -->
+<div id="log">Use WASD para andar e E para interagir</div>
 
 <script src="js/app.js"></script>
 </body>
