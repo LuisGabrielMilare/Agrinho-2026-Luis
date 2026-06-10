@@ -1,30 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Meu Simulador de Fazenda</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Fazenda Sustentável</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
-<body>
 
-    <div class="caixa-principal">
-        <h1>Simulador Fazenda Sustentável</h1>
-        <p>Tema: Agro forte, futuro sustentável</p>
-        
-        <div class="caixa-pontos">
-            <p>Pontos de Ecologia: <span id="pontos">10</span></p>
-        </div>
+<body class="menu">
 
-        <p class="pergunta"><strong>Situação:</strong> Apareceram muitas pragas na plantação de soja. O que você faz?</p>
+<div class="container">
+    <h1>🌱 Simulador de Fazenda Sustentável</h1>
 
-        <div class="opcoes">
-            <button class="botao-bom" onclick="escolhaBoa()">Usar controle biológico (joaninhas)</button>
-            <button class="botao-ruim" onclick="escolhaRuim()">Jogar veneno químico pesado</button>
-        </div>
+    <p>
+        Um simulador sandbox onde você administra uma fazenda,
+        cuida de recursos naturais, fome e economia.
+    </p>
 
-        <p id="texto-resultado">Escolha uma das opções acima para jogar.</p>
-    </div>
+    <button onclick="novoJogo()">▶ Iniciar Simulação</button>
+</div>
 
-    <script src="app.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
