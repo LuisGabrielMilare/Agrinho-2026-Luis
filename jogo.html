@@ -2,41 +2,16 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agrinho Simulator - Fazenda</title>
+    <title>Fazenda Interativa</title>
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-    <div id="jogo-container">
-        <div id="hud">
-            <div>💰 Moedas: <span id="moedas">100</span></div>
-            <div>🌾 Alimentos: <span id="alimentos">5</span></div>
-            <div>🪵 Madeira: <span id="madeira">0</span></div>
-            <div>🪨 Pedra: <span id="pedra">0</span></div>
-            <div>🍗 Fome: <span id="fome">100</span>%</div>
-        </div>
-
-        <canvas id="gameCanvas" width="800" height="500"></canvas>
-
-        <div id="paineis-interacao">
-            <div id="bancada-ferramentas" class="painel escondido">
-                <h3>🛠️ Bancada de Ferramentas</h3>
-                <button onclick="comprarFerramenta('machado')">Machado (20 moedas)</button>
-                <button onclick="comprarFerramenta('picareta')">Picareta (20 moedas)</button>
-            </div>
-
-            <div id="bancada-construcao" class="painel escondido">
-                <h3>🏗️ Bancada de Construção</h3>
-                <button onclick="construirEstrutura('parede')">Parede (5 Madeiras, 5 Pedras)</button>
-                <button onclick="construirEstrutura('porta')">Porta (10 Madeiras)</button>
-                <button onclick="venderAlimento()">Vender 1 Alimento (+15 Moedas)</button>
-                <button onclick="comerAlimento()">Comer 1 Alimento (+20 Fome)</button>
-            </div>
-        </div>
-        
-        <p class="ajuda">Use WASD ou Setas para mover. Aproxime-se dos objetos para interagir automaticamente ou abrir menus.</p>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <div id="hud">
+        <p>Fome: <span id="fome">100</span></p>
+        <p>Madeira: <span id="madeira">0</span></p>
+        <p>Pedra: <span id="pedra">0</span></p>
     </div>
-
     <script src="JS/app.js"></script>
 </body>
 </html>
