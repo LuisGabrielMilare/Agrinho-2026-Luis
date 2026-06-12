@@ -1,96 +1,16 @@
-let state = {
-x: 200,
-y: 200,
-
-agua: 100,
-solo: 100,
-fome: 100,
-dinheiro: 100,
-clima: "☀️"
-};
-
-const player = document.getElementById("player");
-
-// ---------------- MOVIMENTO SUAVE ----------------
-document.addEventListener("keydown",(e)=>{
-
-if(e.key === "w") state.y -= 15;
-if(e.key === "s") state.y += 15;
-if(e.key === "a") state.x -= 15;
-if(e.key === "d") state.x += 15;
-
-if(e.key === "e") interact();
-
-updatePlayer();
-});
-
-// ---------------- PLAYER ----------------
-function updatePlayer(){
-player.style.left = state.x + "px";
-player.style.top = state.y + "px";
-}
-
-// ---------------- INTERAÇÃO REALISTA ----------------
-function interact(){
-
-let msg = "";
-
-if(state.x > 350 && state.y > 180 && state.y < 300){
-state.dinheiro += 20;
-state.fome += 10;
-msg = "🏪 Venda realizada no mercado";
-}
-
-if(state.x < 180 && state.y < 150){
-state.agua += 20;
-msg = "💧 Água coletada";
-}
-
-if(state.x > 180 && state.x < 260){
-msg = "🌱 Área agrícola em uso";
-}
-
-log(msg);
-}
-
-// ---------------- CLIMA ----------------
-function clima(){
-
-let c = ["☀️ Ensolarado","🌧️ Chuva","⛅ Nublado","🌩️ Tempestade"];
-state.clima = c[Math.floor(Math.random()*c.length)];
-
-if(state.clima.includes("🌧️")) state.agua += 10;
-if(state.clima.includes("☀️")) state.agua -= 5;
-if(state.clima.includes("🌩️")) state.solo -= 10;
-
-}
-
-// ---------------- LOOP ----------------
-setInterval(()=>{
-
-state.fome -= 1;
-state.agua -= 1;
-
-clima();
-updateHUD();
-
-},4000);
-
-// ---------------- HUD ----------------
-function updateHUD(){
-
-document.getElementById("agua").innerText = state.agua;
-document.getElementById("solo").innerText = state.solo;
-document.getElementById("fome").innerText = state.fome;
-document.getElementById("dinheiro").innerText = state.dinheiro;
-document.getElementById("clima").innerText = state.clima;
-
-}
-
-// ---------------- LOG ----------------
-function log(msg){
-document.getElementById("log").innerText = msg || "Explorando a fazenda...";
-}
-
-updatePlayer();
-updateHUD();
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrinho Simulator - Menu</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+    <div class="menu-container">
+        <h1>Agrinho Simulator</h1>
+        <p>Gerencie sua fazenda, colha recursos e evite a falência!</p>
+        <a href="jogo.html" class="btn-jogar">Iniciar Jornada</a>
+    </div>
+</body>
+</html>
