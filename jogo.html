@@ -1,17 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Fazenda Interativa</title>
-    <link rel="stylesheet" href="CSS/style.css">
+  <meta charset="UTF-8">
+  <title>Jogo Agrinho</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
-    <div id="hud">
-        <p>Fome: <span id="fome">100</span></p>
-        <p>Madeira: <span id="madeira">0</span></p>
-        <p>Pedra: <span id="pedra">0</span></p>
+
+  <div class="topo">
+    <h1>Fazenda Sandbox</h1>
+    <p>
+      Dinheiro: R$ <span id="dinheiro">50</span> |
+      Fome: <span id="fome">100</span> |
+      Madeira: <span id="madeira">0</span> |
+      Pedra: <span id="pedra">0</span> |
+      Comida: <span id="comida">0</span>
+    </p>
+  </div>
+
+  <div id="aviso">Use W A S D para andar e E para coletar.</div>
+
+  <div class="principal">
+    <div id="mapa">
+      <div id="jogador"></div>
     </div>
-    <script src="JS/app.js"></script>
+
+    <div class="painel">
+      <button onclick="comer()">Comer</button>
+      <button onclick="vender()">Vender comida</button>
+      <button onclick="comprarSemente()">Comprar semente</button>
+      <button onclick="plantar()">Plantar árvore</button>
+      <button onclick="fazerFerramenta()">Fazer ferramenta</button>
+      <button onclick="melhorarCasa()">Melhorar casa</button>
+      <button onclick="cozinhar()">Fazer alimento</button>
+      <button onclick="comprarTrator()">Comprar trator</button>
+    </div>
+  </div>
+
+  <div id="fim">
+    <h1>Você perdeu!</h1>
+    <p id="motivo"></p>
+    <a href="jogo.html">Jogar novamente</a>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
